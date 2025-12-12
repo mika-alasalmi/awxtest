@@ -6,3 +6,7 @@
     - name: Distribution
       debug:
         var: ansible_distribution
+        
+    - name: Version
+      debug:
+        var: ansible_distribution_version
