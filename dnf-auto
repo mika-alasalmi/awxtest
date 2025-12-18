@@ -1,0 +1,17 @@
+- name: Run dnf-automatic manually
+  hosts: all
+  become: yes
+  tasks:
+
+    - name: Ensure dnf-automatic is installed
+      ansible.builtin.dnf:
+        name: dnf-automatic
+        state: present
+
+    - name: Run dnf-automatic upgrade immediately
+      ansible.builtin.command: /usr/sbin/dnf-automatic --quiet --no-color
+      register: dnf_automatic_result
+
+    - name: Show output from dnf-automatic
+      ansible.builtin.debug:
+        var: dnf_automatic_result.stdout_lines
