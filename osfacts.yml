@@ -1,0 +1,12 @@
+- hosts: all
+  become: true
+  gather_facts: yes
+  
+  tasks:
+    - name: Distribution
+      debug:
+        var: ansible_facts['distribution']
+        
+    - name: Version
+      debug:
+        var: ansible_facts['distribution_version']
