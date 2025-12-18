@@ -1,0 +1,38 @@
+- name: Apply security updates automatically
+  hosts: all
+  become: yes
+  tasks:
+
+    # Debian/Ubuntu
+    - name: Ensure unattended-upgrades is installed
+      ansible.builtin.apt:
+        name: unattended-upgrades
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Run unattended-upgrades
+      ansible.builtin.command: unattended-upgrade -d
+      when: ansible_os_family == "Debian"
+      register: unattended_result
+
+    - name: Show unattended-upgrades output
+      debug:
+        var: unattended_result.stdout_lines
+      when: ansible_os_family == "Debian"
+
+    # RedHat-family
+    - name: Ensure dnf-automatic is installed
+      ansible.builtin.yum:
+        name: dnf-automatic
+        state: present
+      when: ansible_os_family == "RedHat"
+
+    - name: Run dnf-automatic to install updates
+      ansible.builtin.command: dnf-automatic --installupdates
+      when: ansible_os_family == "RedHat"
+      register: dnf_result
+
+    - name: Show dnf-automatic output
+      debug:
+        var: dnf_result.stdout_lines
+      when: ansible_os_family == "RedHat"
