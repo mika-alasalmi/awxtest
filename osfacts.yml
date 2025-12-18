@@ -1,12 +1,8 @@
 - hosts: all
-  become: true
   gather_facts: yes
   
   tasks:
-    - name: Distribution
-      debug:
-        var: ansible_facts['distribution']
-        
-    - name: Version
-      debug:
-        var: ansible_facts['distribution_version']
+    - name: Save distribution info
+      set_fact:
+        my_os: "{{ ansible_facts['distribution'] }}"
+        my_version: "{{ ansible_facts['distribution_version'] }}"
