@@ -1,6 +1,6 @@
-- name: Run dnf-automatic manually
-  hosts: all
+- hosts: all
   become: yes
+
   tasks:
 
     - name: Ensure dnf-automatic is installed
