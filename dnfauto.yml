@@ -9,7 +9,7 @@
         state: present
 
     - name: Run dnf-automatic upgrade immediately
-      ansible.builtin.command: dnf-automatic --quiet --no-color
+      ansible.builtin.command: dnf-automatic --installupdates
       register: dnf_automatic_result
 
     - name: Show output from dnf-automatic
